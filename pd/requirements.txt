@@ -2,5 +2,5 @@ mediapipe
 flask
 numpy 
 gunicorn
-opencv-python
+opencv-python-headless
 Jinja2
