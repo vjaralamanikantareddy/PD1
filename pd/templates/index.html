@@ -8,7 +8,7 @@
 <body>
     <h1>Video Feed with Pose Detection</h1>
     
-    <img id="videoElement" src="{{ url_for('video_feed') }}" width="640" height="480">
+    <video id="videoElement" width="640" height="480" autoplay></video>
 
     <div>
         <button id="startButton" onclick="startPoseDetection()">Start Pose Detection</button>
@@ -16,6 +16,7 @@
     </div>
 
     <script>
+        var videoElement = document.getElementById('videoElement');
         var startButton = document.getElementById('startButton');
         var stopButton = document.getElementById('stopButton');
 
@@ -40,6 +41,15 @@
                 })
                 .catch(error => console.error('Error stopping pose detection:', error));
         }
+
+        // Fetch video feed and set it as the source for the video element
+        fetch('{{ url_for('video_feed') }}')
+            .then(response => {
+                if (response.ok) {
+                    videoElement.srcObject = response;
+                }
+            })
+            .catch(error => console.error('Error fetching video feed:', error));
     </script>
 </body>
 </html>
